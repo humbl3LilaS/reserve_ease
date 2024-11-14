@@ -1,9 +1,10 @@
 import {ReactNode} from "react";
+import Header from "@/components/header";
 
 const ClientLayout = ({children}:{children:ReactNode}) => {
     return (
         <>
-         <header>Main header</header>
+         <Header/>
          <main>{children}</main>
         </>
     );

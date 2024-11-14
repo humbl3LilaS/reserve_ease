@@ -9,18 +9,21 @@ export async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
 
     const isProtectRoute = !publicPath.some((path) => path === pathname);
+    const token = await getToken({req: request, secret: process.env.AUTH_SECRET});
 
     if (!isProtectRoute) {
-        return NextResponse.next();
+        if (!token) {
+            return NextResponse.next();
+        } else {
+            return NextResponse.redirect(new URL("/",request.url));
+        }
     }
 
-    const token = await getToken({req: request, secret: process.env.AUTH_SECRET});
     if (token) {
         return NextResponse.next();
     }
 
     const loginUrl = new URL("/login", request.url)
-
     return NextResponse.redirect(loginUrl)
 }
 
