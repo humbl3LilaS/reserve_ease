@@ -4,6 +4,8 @@ import {SignUpSchemaType} from "@/validation/schema";
 import {db} from "@/database/drizzle";
 import {users} from "@/database/schema";
 import {hashPassword} from "@/lib/actions";
+import {signIn} from "@/auth";
+
 
 export const singUp = async (payload: Omit<SignUpSchemaType, "confirmPassword">) => {
     try {
@@ -22,6 +24,9 @@ export const singUp = async (payload: Omit<SignUpSchemaType, "confirmPassword">)
         if (!user) {
             return undefined;
         }
+
+        // invoke auth.js signIn to get session data
+        await signIn("credentials", {email: payload.email, password: hashedPassword, redirect: false});
 
         return user;
 

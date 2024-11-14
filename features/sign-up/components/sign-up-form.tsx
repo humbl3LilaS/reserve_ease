@@ -7,11 +7,12 @@ import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import {useRouter} from "next/navigation";
 import {singUp} from "@/features/sign-up/actions/sign-up-actions";
+import {Loader2} from "lucide-react";
+
 
 const SignUpForm = () => {
 
     const router = useRouter();
-
     const form = useForm<SignUpSchemaType>(
         {
             mode: "onChange",
@@ -128,8 +129,20 @@ const SignUpForm = () => {
                             </FormItem>
                         }/>
 
-                    <Button type="submit" className={"w-full"}>
-                        Sign Up
+                    <Button
+                        type="submit"
+                        className={"w-full disabled:text-slate-300"}
+                        disabled={form.formState.isSubmitting || !form.formState.isValid}
+
+                    >
+                        {
+                            form.formState.isSubmitting
+                            ? <>
+                                <Loader2 className={"size-3 text-slate-300 animate-spin"}/>
+                                <span>Submitting</span>
+                            </>
+                            : <span>Sign Up</span>
+                        }
                     </Button>
                 </form>
             </Form>
