@@ -5,8 +5,12 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
+import {useRouter} from "next/navigation";
+import {singUp} from "@/features/sign-up/actions/sign-up-actions";
 
 const SignUpForm = () => {
+
+    const router = useRouter();
 
     const form = useForm<SignUpSchemaType>(
         {
@@ -22,8 +26,11 @@ const SignUpForm = () => {
         }
     )
 
-    const submitHandler: SubmitHandler<SignUpSchemaType> = (value) => {
-        console.log(value);
+    const submitHandler: SubmitHandler<SignUpSchemaType> = async (value) => {
+        const user = await singUp(value);
+        if (user) {
+            router.push("/");
+        }
     }
 
     return (
