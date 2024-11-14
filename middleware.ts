@@ -23,11 +23,11 @@ export async function middleware(request: NextRequest) {
         return NextResponse.next();
     }
 
-    const loginUrl = new URL("/login", request.url)
+    const loginUrl = new URL("/sign-in", request.url)
     return NextResponse.redirect(loginUrl)
 }
 
 
 export const config = {
-    matcher: ["/:path*"]
+    matcher: ["/", "/sign-in", "/sign-up"],
 }

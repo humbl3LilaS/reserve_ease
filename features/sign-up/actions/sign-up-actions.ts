@@ -12,7 +12,7 @@ export const singUp = async (payload: Omit<SignUpSchemaType, "confirmPassword">)
         const hashedPassword = await hashPassword(payload.password);
 
 
-        const user = await db
+        const [user] = await db
             .insert(users)
             .values(
                 {
@@ -26,7 +26,7 @@ export const singUp = async (payload: Omit<SignUpSchemaType, "confirmPassword">)
         }
 
         // invoke auth.js signIn to get session data
-        await signIn("credentials", {email: payload.email, password: hashedPassword, redirect: false});
+        await signIn("credentials", {email: payload.email, password: payload.password, redirect: false});
 
         return user;
 
