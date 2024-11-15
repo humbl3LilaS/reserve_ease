@@ -1,10 +1,12 @@
 import {auth} from "@/auth";
+import Hero from "@/components/hero";
 
 const HomePage = async () => {
     const session = await auth();
-    console.log(session);
     return (
-        <h1 className={"text-4xl text-green-500"}>Reserve Ease</h1>
+        <>
+            <Hero/>
+        </>
     );
 }
 
