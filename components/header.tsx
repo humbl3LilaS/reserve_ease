@@ -9,12 +9,13 @@ import {auth, signOut} from "@/auth";
 const Header = async () => {
     const session = await auth();
     return (
-        <header className={"w-dvw md:w-vw h-20 px-6 flex items-center  gap-x-20 bg-slate-400 md:px-10"}>
+        <header
+            className={"w-dvw md:w-vw h-20 px-6 flex items-center justify-between relative z-30 md:justify-start  md:gap-x-20 md:px-10"}>
             <Link href="/">
                 <Image src="/logo.svg" alt="Logo" width={40} height={40}/>
             </Link>
             <nav className={"hidden md:block"}>
-                <ul className={"flex items-center gap-x-10 lg:gap-x-14"}>
+                <ul className={"flex items-center gap-x-10 text-white lg:gap-x-14"}>
                     <li className={"py-2"}>
                         <Link
                             href="/"
@@ -49,7 +50,7 @@ const Header = async () => {
                 </ul>
             </nav>
 
-            <div className={"ml-auto"}>
+            <div className={"hidden ml-auto md:block"}>
                 <Button className={"mr-8 bg-green-600 shadow-none"}
                         onClick={async () => {
                             "use server"

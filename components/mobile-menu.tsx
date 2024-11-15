@@ -1,9 +1,11 @@
-import {Sheet, SheetContent, SheetTrigger} from "@/components/ui/sheet";
+import {Sheet, SheetContent, SheetTitle, SheetTrigger} from "@/components/ui/sheet";
 import {Button} from "@/components/ui/button";
 import {AlignJustify, BookMarked, HomeIcon, UtensilsCrossed} from "lucide-react";
 import Link from "next/link";
+import {auth} from "@/auth";
 
-const MobileMenu = () => {
+const MobileMenu = async () => {
+    const session = await auth();
 
     return (
         <Sheet>
@@ -12,13 +14,16 @@ const MobileMenu = () => {
                     <AlignJustify size="md"/>
                 </Button>
             </SheetTrigger>
-            <SheetContent className={" flex items-start justify-center"}>
-                <nav className={"w-full mt-20"}>
-                    <ul className={"flex flex-col gap-y-10 justify-center items-center"}>
-                        <li className={"py-2"}>
+            <SheetContent className={"pb-10 flex flex-col items-start justify-between"}>
+                <SheetTitle className={"sr-only"}>
+                    Menu
+                </SheetTitle>
+                <nav className={"w-full px-6 mt-20"}>
+                    <ul className={"flex flex-col gap-y-6"}>
+                        <li>
                             <Link
                                 href="/"
-                                className={"flex items-center justify-center gap-x-3"}
+                                className={"py-2 flex items-center  gap-x-3"}
                             >
                                 <HomeIcon/>
                                 <span>Home</span>
@@ -27,7 +32,7 @@ const MobileMenu = () => {
                         <li>
                             <Link
                                 href="/restaurants"
-                                className={"flex items-center gap-x-3"}
+                                className={"py-2 flex items-center gap-x-3"}
                             >
                                 <UtensilsCrossed/>
                                 <span>
@@ -38,7 +43,7 @@ const MobileMenu = () => {
                         <li>
                             <Link
                                 href="/reservations"
-                                className={"flex items-center gap-x-3"}
+                                className={"py-2 flex items-center gap-x-3"}
                             >
                                 <BookMarked/>
                                 <span>
@@ -48,6 +53,9 @@ const MobileMenu = () => {
                         </li>
                     </ul>
                 </nav>
+                <div className={"w-full px-6 mt-auto"}>
+                    Profile
+                </div>
             </SheetContent>
         </Sheet>
     );
