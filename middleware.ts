@@ -4,19 +4,19 @@ import {getToken} from "@auth/core/jwt";
 export {auth} from '@/auth';
 
 export async function middleware(request: NextRequest) {
-
-    const publicPath = ["/sign-in", "/sign-up"];
+    const authRoute = ["/sign-in", "/sign-up"]
+    const publicRoute = ["/", "/restaurants", ...authRoute];
     const pathname = request.nextUrl.pathname;
 
-    const isProtectRoute = !publicPath.some((path) => path === pathname);
+    const isProtectRoute = !publicRoute.some((path) => path === pathname);
     const token = await getToken({req: request, secret: process.env.AUTH_SECRET});
 
     if (!isProtectRoute) {
-        if (!token) {
-            return NextResponse.next();
-        } else {
-            return NextResponse.redirect(new URL("/",request.url));
+        const isAuthRoute = authRoute.some(path => path === pathname);
+        if (isAuthRoute && token) {
+            return NextResponse.redirect(new URL("/", request.url))
         }
+        return NextResponse.next();
     }
 
     if (token) {
@@ -29,5 +29,5 @@ export async function middleware(request: NextRequest) {
 
 
 export const config = {
-    matcher: ["/", "/sign-in", "/sign-up"],
+    matcher: ["/", "/sign-in", "/sign-up", "/reservations", "/restaurants"],
 }

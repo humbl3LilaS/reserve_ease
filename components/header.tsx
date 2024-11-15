@@ -3,8 +3,11 @@ import Image from "next/image";
 import MobileMenu from "@/components/mobile-menu";
 import {BookMarked, HomeIcon, UtensilsCrossed} from "lucide-react";
 import {Button} from "@/components/ui/button";
+import {redirect} from "next/navigation";
+import {auth, signOut} from "@/auth";
 
-const Header = () => {
+const Header = async () => {
+    const session = await auth();
     return (
         <header className={"w-dvw md:w-vw h-20 px-6 flex items-center  gap-x-20 bg-slate-400 md:px-10"}>
             <Link href="/">
@@ -46,9 +49,24 @@ const Header = () => {
                 </ul>
             </nav>
 
-            <Button className={"ml-auto bg-green-600 shadow-none"}>
-                Find a table
-            </Button>
+            <div className={"ml-auto"}>
+                <Button className={"mr-8 bg-green-600 shadow-none"}
+                        onClick={async () => {
+                            "use server"
+                            redirect("/reservations")
+                        }}
+                >
+                    Find a table
+                </Button>
+
+                {/*Todo: replace with profile button*/}
+                {session && <Button onClick={async () => {
+                    "use server"
+                    await signOut();
+                }}>
+                    Logout
+                </Button>}
+            </div>
 
             <MobileMenu/>
         </header>
