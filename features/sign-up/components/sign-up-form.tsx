@@ -1,4 +1,5 @@
 "use client"
+
 import {SubmitHandler, useForm} from "react-hook-form";
 import {SignUpSchema, SignUpSchemaType} from "@/validation/schema";
 import {zodResolver} from "@hookform/resolvers/zod";

@@ -1,7 +1,7 @@
 import {db} from "@/database/drizzle";
 import {users} from "@/database/schema";
 import {and, eq} from "drizzle-orm";
-import bcrypt from "bcrypt";
+import {decryptPassword} from "@/lib/actions";
 
 export const POST = async (req: Request) => {
     try {
@@ -21,7 +21,7 @@ export const POST = async (req: Request) => {
             return new Response(JSON.stringify({message: "User not found"}), {status: 404});
         }
 
-        const isUser = await bcrypt.compare(password, user.password);
+        const isUser = await decryptPassword(password, user.password);
 
         if (!isUser) {
             return new Response(JSON.stringify({message: "Invalid Password"}), {status: 401});

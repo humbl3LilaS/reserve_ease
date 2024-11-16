@@ -1,4 +1,5 @@
 import {IssueData, z} from "zod";
+import {differenceInDays} from "date-fns";
 
 export const SignInSchema = z.object(
     {
@@ -44,3 +45,15 @@ export const SignUpSchema = z.object(
     }
 })
 export type SignUpSchemaType = Zod.infer<typeof SignUpSchema>
+
+export const BookTableSchema = z.object(
+    {
+        person: z.number(),
+        date: z.date().refine(arg => (
+            differenceInDays(arg, new Date()) + 1
+        ) > 0),
+        time: z.string(),
+    }
+)
+
+export type BookTableSchemaType = Zod.infer<typeof BookTableSchema>

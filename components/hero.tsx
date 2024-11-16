@@ -6,7 +6,7 @@ const Hero = () => {
 
         <section className="relative z-20">
             <Header/>
-            <div className="relative py-16 text-center text-white z-30 md:py-36 lg:py-64">
+            <div className="relative py-20 text-center text-white z-30 md:py-36 lg:py-72">
                 <p className={"font-bold tracking-wide uppercase lg:text-2xl"}>
                     Book your table
                 </p>
