@@ -22,7 +22,7 @@ const DataSelector = (
     }: DataSelectorProps
 ) => {
     return (
-        <Select onValueChange={onValueChange} defaultValue={defaultValueIndex ? options[defaultValueIndex] : undefined}>
+        <Select onValueChange={onValueChange} defaultValue={defaultValueIndex !== -1 ? options[defaultValueIndex!] : undefined}>
             <SelectTrigger>
                 <SelectValue placeholder={placeholder}/>
             </SelectTrigger>

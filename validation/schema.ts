@@ -48,7 +48,7 @@ export type SignUpSchemaType = Zod.infer<typeof SignUpSchema>
 
 export const BookTableSchema = z.object(
     {
-        person: z.number(),
+        person: z.string(),
         date: z.date().refine(arg => (
             differenceInDays(arg, new Date()) + 1
         ) > 0),

@@ -1,11 +1,10 @@
 "use client"
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/pop-over";
-import {Calendar} from "@/components/ui/calendar";
-import {useState} from "react";
 import {Button} from "@/components/ui/button";
 import {cn} from "@/lib/utils";
 import {CalendarIcon} from "lucide-react";
 import {format} from "date-fns";
+import {Calendar} from "@/components/ui/calendar";
 
 type DatePickerProps = {
     value: Date;
@@ -19,7 +18,7 @@ const DatePicker = ({value, onValueChange}: DatePickerProps) => {
                 <Button
                     variant={"outline"}
                     className={cn(
-                        "w-[280px] justify-start text-left font-normal",
+                        "w-full justify-start text-left font-normal",
                         !value && "text-muted-foreground"
                     )}
                 >
@@ -27,11 +26,12 @@ const DatePicker = ({value, onValueChange}: DatePickerProps) => {
                     {value ? format(value, "PPP") : <span>Pick a date</span>}
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className={"w-auto"}>
+            <PopoverContent  className={"w-[340px]"}>
                 <Calendar
-                    mode="single"
+                    mode={"single"}
                     selected={value}
                     onSelect={onValueChange}
+                    className="w-full rounded-md border"
                 />
             </PopoverContent>
         </Popover>
